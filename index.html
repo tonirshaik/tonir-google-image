@@ -4,55 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tonir Shaik | Google Images Gallery</title>
-  <meta name="description" content="Tonir Shaik's photo collection optimized for Google Images. High quality photos with direct links.">
+  <meta name="description" content="Tonir Shaik's photo collection optimized for Google Images.">
   <meta name="robots" content="index, follow">
-  <meta name="author" content="Tonir Shaik">
   <link rel="canonical" href="https://tonirshaik.github.io/tonir-google-image/">
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Tonir Shaik | Google Images Gallery">
-  <meta property="og:description" content="Tonir Shaik's photo collection optimized for Google Images.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://tonirshaik.github.io/tonir-google-image/">
-
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background: #0f0f0f;
       color: #e5e5e5;
-      line-height: 1.5;
       padding: 20px;
     }
-
     header {
       text-align: center;
       padding: 30px 0 40px;
       border-bottom: 1px solid #222;
       margin-bottom: 40px;
     }
-
-    header h1 {
-      font-size: 28px;
-      font-weight: 600;
-      letter-spacing: -0.5px;
-    }
-
-    header h1 span {
-      color: #60a5fa;
-    }
-
-    header p {
-      margin-top: 8px;
-      color: #888;
-      font-size: 15px;
-    }
-
+    header h1 { font-size: 28px; font-weight: 600; }
+    header h1 span { color: #60a5fa; }
+    header p { margin-top: 8px; color: #888; font-size: 15px; }
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -60,27 +32,22 @@
       max-width: 1400px;
       margin: 0 auto;
     }
-
     .photo {
       background: #1a1a1a;
       border-radius: 12px;
       overflow: hidden;
       border: 1px solid #2a2a2a;
     }
-
     .photo img {
       width: 100%;
       height: auto;
       display: block;
-      vertical-align: middle;
     }
-
     .photo .caption {
       padding: 12px 14px;
       font-size: 14px;
       color: #aaa;
     }
-
     footer {
       text-align: center;
       margin-top: 60px;
@@ -89,10 +56,12 @@
       font-size: 13px;
       border-top: 1px solid #222;
     }
-
-    footer a {
-      color: #60a5fa;
-      text-decoration: none;
+    footer a { color: #60a5fa; text-decoration: none; }
+    .loading {
+      text-align: center;
+      padding: 60px 20px;
+      color: #666;
+      font-size: 16px;
     }
   </style>
 </head>
@@ -103,32 +72,8 @@
     <p>Google Images Optimized Photo Gallery</p>
   </header>
 
-  <div class="gallery">
-
-    <!-- 
-      ==============================
-      এখানে নতুন ছবি যোগ করবে
-      ==============================
-      ImgBB তে আপলোড করার পর Direct link নিয়ে নিচের মতো করে বসাও
-    -->
-
-    <div class="photo">
-      <img src="https://i.ibb.co/5X61GVYv/6fe1ddbbcd6c.jpg" alt="Tonir Shaik photo 1" title="Tonir Shaik">
-      <div class="caption">Tonir Shaik</div>
-    </div>
-
-    <div class="photo">
-      <img src="https://i.ibb.co/0y2vZ74p/IMG-7483-1949495956.jpg" alt="Tonir Shaik photo 2" title="Tonir Shaik">
-      <div class="caption">Tonir Shaik</div>
-    </div>
-
-    <div class="photo">
-      <img src="https://i.ibb.co/XGCFFJn/Tonir-Shaik.jpg" alt="Tonir Shaik photo 3" title="Tonir Shaik">
-      <div class="caption">Tonir Shaik</div>
-    </div>
-
-    <!-- আরও ছবি যোগ করতে চাইলে উপরের ব্লক কপি করে নিচে বসাও -->
-
+  <div id="gallery" class="gallery">
+    <div class="loading">Loading photos...</div>
   </div>
 
   <footer>
@@ -136,5 +81,43 @@
     <a href="https://tonirshaik.github.io/tonirshaik/" target="_blank">Main Gallery</a>
   </footer>
 
+  <script>
+    // এখানে images.txt এর Raw link বসানো আছে
+    const IMAGES_TXT = "https://raw.githubusercontent.com/tonirshaik/tonir-google-image/main/images.txt";
+
+    async function loadImages() {
+      const gallery = document.getElementById("gallery");
+      try {
+        const res = await fetch(IMAGES_TXT + "?t=" + Date.now());
+        const text = await res.text();
+        
+        // প্রতি লাইন থেকে লিংক বের করা
+        const links = text.split("\n")
+          .map(line => line.trim())
+          .filter(line => line.startsWith("http"));
+
+        if (links.length === 0) {
+          gallery.innerHTML = '<div class="loading">No photos found</div>';
+          return;
+        }
+
+        gallery.innerHTML = "";
+        links.forEach(link => {
+          const div = document.createElement("div");
+          div.className = "photo";
+          div.innerHTML = `
+            <img src="${link}" alt="Tonir Shaik" title="Tonir Shaik" loading="lazy">
+            <div class="caption">Tonir Shaik</div>
+          `;
+          gallery.appendChild(div);
+        });
+      } catch (err) {
+        gallery.innerHTML = '<div class="loading">Failed to load photos</div>';
+        console.error(err);
+      }
+    }
+
+    loadImages();
+  </script>
 </body>
 </html>
