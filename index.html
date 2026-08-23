@@ -1,681 +1,140 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gmail OTP Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        :root {
-            --bg-color: #0b0f19;
-            --card-bg: rgba(18, 24, 38, 0.75);
-            --card-border: rgba(255, 255, 255, 0.08);
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-            --accent-blue: #3b82f6;
-            --accent-cyan: #06b6d4;
-            --accent-green: #10b981;
-            --accent-red: #ef4444;
-            --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            --gradient-btn: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-            --shadow-glow: 0 0 25px rgba(59, 130, 246, 0.25);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tonir Shaik | Google Images Gallery</title>
+  <meta name="description" content="Tonir Shaik's photo collection optimized for Google Images. High quality photos with direct links.">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Tonir Shaik">
+  <link rel="canonical" href="https://tonirshaik.github.io/tonir-google-image/">
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
+  <!-- Open Graph -->
+  <meta property="og:title" content="Tonir Shaik | Google Images Gallery">
+  <meta property="og:description" content="Tonir Shaik's photo collection optimized for Google Images.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tonirshaik.github.io/tonir-google-image/">
 
-        body {
-            background-color: var(--bg-color);
-            background-image: 
-                radial-gradient(circle at 15% 20%, rgba(59, 130, 246, 0.12) 0%, transparent 40%),
-                radial-gradient(circle at 85% 80%, rgba(139, 92, 246, 0.12) 0%, transparent 40%);
-            background-attachment: fixed;
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        .container {
-            position: relative;
-            width: 100%;
-            max-width: 480px;
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--card-border);
-            border-radius: 24px;
-            padding: 32px 28px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), var(--shadow-glow);
-        }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0f0f0f;
+      color: #e5e5e5;
+      line-height: 1.5;
+      padding: 20px;
+    }
 
-        .hidden { display: none !important; }
+    header {
+      text-align: center;
+      padding: 30px 0 40px;
+      border-bottom: 1px solid #222;
+      margin-bottom: 40px;
+    }
 
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-            position: relative;
-        }
+    header h1 {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+    }
 
-        .header-title {
-            font-size: 20px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #60a5fa, #a78bfa, #22d3ee);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+    header h1 span {
+      color: #60a5fa;
+    }
 
-        .settings-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--card-border);
-            color: var(--text-main);
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+    header p {
+      margin-top: 8px;
+      color: #888;
+      font-size: 15px;
+    }
 
-        .settings-btn:hover {
-            background: rgba(59, 130, 246, 0.2);
-            border-color: var(--accent-blue);
-            color: var(--accent-cyan);
-            transform: rotate(45deg);
-        }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
 
-        .settings-popup {
-            display: none;
-            position: absolute;
-            top: 50px;
-            right: 0;
-            width: 320px;
-            background: #111827;
-            border: 1px solid var(--card-border);
-            border-radius: 18px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            z-index: 100;
-            animation: fadeIn 0.2s ease-in-out;
-        }
+    .photo {
+      background: #1a1a1a;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #2a2a2a;
+    }
 
-        .settings-popup.active { display: block; }
+    .photo img {
+      width: 100%;
+      height: auto;
+      display: block;
+      vertical-align: middle;
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    .photo .caption {
+      padding: 12px 14px;
+      font-size: 14px;
+      color: #aaa;
+    }
 
-        @keyframes customSpin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      padding: 30px 0;
+      color: #555;
+      font-size: 13px;
+      border-top: 1px solid #222;
+    }
 
-        .rotating {
-            display: inline-block;
-            animation: customSpin 0.8s linear infinite;
-        }
-
-        /* সবুজ পালসিং ডট */
-        .new-dot {
-            position: absolute;
-            top: 14px;
-            right: 14px;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #10b981;
-            z-index: 5;
-        }
-
-        .new-dot::before {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: rgba(16, 185, 129, 0.4);
-            animation: dotPulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes dotPulse {
-            0%, 100% { transform: scale(0.8); opacity: 0.6; }
-            50% { transform: scale(1.6); opacity: 0; }
-        }
-
-        .popup-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--accent-cyan);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            text-transform: uppercase;
-        }
-
-        .input-group { margin-bottom: 12px; }
-
-        .input-group input {
-            width: 100%;
-            padding: 12px 14px;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            color: #fff;
-            font-size: 13px;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .input-group input:focus { border-color: var(--accent-blue); }
-
-        .btn {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background: var(--gradient-btn);
-            color: #fff;
-        }
-
-        .btn-refresh {
-            background: rgba(6, 182, 212, 0.15);
-            color: var(--accent-cyan);
-            border: 1px solid rgba(6, 182, 212, 0.3);
-            margin-bottom: 20px;
-        }
-
-        .btn-refresh:hover {
-            background: rgba(6, 182, 212, 0.25);
-            color: #fff;
-            box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
-        }
-
-        .btn-logout {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--accent-red);
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            margin-top: 15px;
-        }
-
-        .btn-logout:hover {
-            background: rgba(239, 68, 68, 0.2);
-            color: #fff;
-        }
-
-        .msg-status {
-            font-size: 12px;
-            text-align: center;
-            margin-bottom: 12px;
-            display: none;
-        }
-
-        .otp-container {
-            max-height: 420px;
-            overflow-y: auto;
-            padding-right: 4px;
-        }
-
-        .otp-container::-webkit-scrollbar { width: 5px; }
-        .otp-container::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 10px; }
-
-        .otp-card {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 14px;
-            padding: 16px;
-            margin-bottom: 12px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .otp-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--gradient-primary);
-        }
-
-        /* নতুন কার্ডে সবুজ বর্ডার গ্লো */
-        .otp-card.is-new {
-            border-color: rgba(16, 185, 129, 0.4);
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.1);
-        }
-
-        .otp-email { 
-            font-size: 13px; 
-            font-weight: 600; 
-            color: var(--accent-cyan); 
-            margin-bottom: 6px; 
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .otp-subject { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; }
-
-        .otp-code-box {
-            text-align: center;
-            font-size: 24px;
-            font-weight: 700;
-            color: #38bdf8;
-            letter-spacing: 3px;
-            background: rgba(56, 189, 248, 0.1);
-            padding: 12px 14px;
-            border-radius: 8px;
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            margin-bottom: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            user-select: none;
-        }
-
-        .otp-code-box:hover {
-            background: rgba(56, 189, 248, 0.2);
-            border-color: #38bdf8;
-            transform: translateY(-1px);
-        }
-
-        .otp-code-box:active { transform: scale(0.96); }
-
-        .otp-time { font-size: 11px; color: var(--text-muted); }
-        .empty-state { text-align: center; color: var(--text-muted); font-size: 13px; padding: 20px 0; }
-
-        .toast {
-            visibility: hidden;
-            min-width: 160px;
-            background: rgba(16, 185, 129, 0.95);
-            color: #fff;
-            text-align: center;
-            border-radius: 30px;
-            padding: 10px 20px;
-            position: fixed;
-            z-index: 1000;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 13px;
-            font-weight: 600;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            opacity: 0;
-            transition: opacity 0.3s, bottom 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            backdrop-filter: blur(8px);
-        }
-
-        .toast.show {
-            visibility: visible;
-            opacity: 1;
-            bottom: 35px;
-        }
-    </style>
+    footer a {
+      color: #60a5fa;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="container">
-        
-        <!-- LOGIN SECTION -->
-        <div id="loginSection">
-            <div class="header-title" style="justify-content: center; margin-bottom: 20px;">
-                <i class="fa-solid fa-lock"></i> Secure Login
-            </div>
-            <div id="loginError" class="msg-status" style="color: var(--accent-red);"></div>
-            <form id="loginForm">
-                <div class="input-group">
-                    <input type="password" id="masterPasswordInput" placeholder="Enter Master Password" required autocomplete="off">
-                </div>
-                <button type="submit" class="btn btn-primary">
-                    <i class="fa-solid fa-right-to-bracket"></i> Login
-                </button>
-            </form>
-        </div>
+  <header>
+    <h1>Tonir <span>Shaik</span></h1>
+    <p>Google Images Optimized Photo Gallery</p>
+  </header>
 
-        <!-- DASHBOARD SECTION -->
-        <div id="dashboardSection" class="hidden">
-            <div class="top-bar">
-                <div class="header-title">
-                    <i class="fa-solid fa-envelope-open-text"></i> OTP Dashboard
-                </div>
-                
-                <button class="settings-btn" id="settingsToggle" title="Add Account Settings">
-                    <i class="fa-solid fa-gear"></i>
-                </button>
+  <div class="gallery">
 
-                <div class="settings-popup" id="settingsPopup">
-                    <div class="settings-auth" id="settingsAuth">
-                        <div class="popup-title">
-                            <i class="fa-solid fa-lock"></i> Enter Settings Password
-                        </div>
-                        <form id="settingsAuthForm">
-                            <div class="input-group">
-                                <input type="password" id="settingsPasswordInput" placeholder="Enter password" required autocomplete="off">
-                            </div>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fa-solid fa-key"></i> Unlock
-                            </button>
-                        </form>
-                        <div id="settingsAuthError" class="msg-status" style="color: var(--accent-red); display: none; margin-top: 8px; font-size: 13px;"></div>
-                    </div>
+    <!-- 
+      ==============================
+      এখানে নতুন ছবি যোগ করবে
+      ==============================
+      ImgBB তে আপলোড করার পর Direct link নিয়ে নিচের মতো করে বসাও
+    -->
 
-                    <div class="settings-content hidden" id="settingsContent">
-                        <div class="popup-title">
-                            <i class="fa-solid fa-user-plus"></i> Add Gmail Account
-                        </div>
-                        <form id="addAccountForm">
-                            <div class="input-group">
-                                <input type="email" id="accEmail" placeholder="Gmail Address" required autocomplete="off">
-                            </div>
-                            <div class="input-group">
-                                <input type="password" id="accPassword" placeholder="16-digit App Password" required autocomplete="off">
-                            </div>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fa-solid fa-floppy-disk"></i> Save Account
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <div id="statusMsg" class="msg-status"></div>
-
-            <button type="button" class="btn btn-refresh" id="refreshBtn">
-                <i class="fa-solid fa-rotate-right" id="refreshIcon"></i> Refresh OTPs
-            </button>
-
-            <div class="otp-container" id="otpContainer">
-                <div class="empty-state">
-                    <i class="fa-solid fa-inbox" style="font-size: 24px; margin-bottom: 6px; display: block;"></i>
-                    Click "Refresh OTPs" to load emails.
-                </div>
-            </div>
-
-            <button type="button" class="btn btn-logout" onclick="logout()">
-                <i class="fa-solid fa-right-from-bracket"></i> Logout
-            </button>
-        </div>
-
+    <div class="photo">
+      <img src="https://i.ibb.co/example1.jpg" alt="Tonir Shaik photo 1" title="Tonir Shaik">
+      <div class="caption">Tonir Shaik</div>
     </div>
 
-    <!-- Toast Notification -->
-    <div id="toast" class="toast">
-        <i class="fa-solid fa-circle-check"></i> <span id="toastMsg">Copied!</span>
+    <div class="photo">
+      <img src="https://i.ibb.co/example2.jpg" alt="Tonir Shaik photo 2" title="Tonir Shaik">
+      <div class="caption">Tonir Shaik</div>
     </div>
 
-    <script>
-        const loginSection = document.getElementById('loginSection');
-        const dashboardSection = document.getElementById('dashboardSection');
-        const loginForm = document.getElementById('loginForm');
-        const loginError = document.getElementById('loginError');
+    <div class="photo">
+      <img src="https://i.ibb.co/example3.jpg" alt="Tonir Shaik photo 3" title="Tonir Shaik">
+      <div class="caption">Tonir Shaik</div>
+    </div>
 
-        const settingsToggle = document.getElementById('settingsToggle');
-        const settingsPopup = document.getElementById('settingsPopup');
-        const otpContainer = document.getElementById('otpContainer');
-        const refreshBtn = document.getElementById('refreshBtn');
-        const addAccountForm = document.getElementById('addAccountForm');
-        const statusMsg = document.getElementById('statusMsg');
+    <!-- আরও ছবি যোগ করতে চাইলে উপরের ব্লক কপি করে নিচে বসাও -->
 
-        const settingsAuth = document.getElementById('settingsAuth');
-        const settingsContent = document.getElementById('settingsContent');
-        const settingsAuthForm = document.getElementById('settingsAuthForm');
-        const settingsPasswordInput = document.getElementById('settingsPasswordInput');
-        const settingsAuthError = document.getElementById('settingsAuthError');
+  </div>
 
-        // আগের কোডগুলো মনে রাখার জন্য
-        let previousCodes = [];
+  <footer>
+    © 2026 Tonir Shaik · 
+    <a href="https://tonirshaik.github.io/tonirshaik/" target="_blank">Main Gallery</a>
+  </footer>
 
-        function resetSettingsPopup() {
-            settingsAuth.classList.remove('hidden');
-            settingsContent.classList.add('hidden');
-            settingsPasswordInput.value = '';
-            settingsAuthError.style.display = 'none';
-            settingsAuthError.innerText = '';
-        }
-
-        settingsToggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            settingsPopup.classList.toggle('active');
-            if (!settingsPopup.classList.contains('active')) {
-                resetSettingsPopup();
-            }
-        });
-
-        settingsAuthForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const password = settingsPasswordInput.value.trim();
-            if (password === '889900') {
-                settingsAuth.classList.add('hidden');
-                settingsContent.classList.remove('hidden');
-                settingsAuthError.style.display = 'none';
-            } else {
-                settingsAuthError.innerText = 'Incorrect password. Please try again.';
-                settingsAuthError.style.display = 'block';
-            }
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!settingsPopup.contains(e.target) && !settingsToggle.contains(e.target)) {
-                settingsPopup.classList.remove('active');
-                resetSettingsPopup();
-            }
-        });
-
-        function showMessage(msg, isError = false) {
-            statusMsg.style.display = 'block';
-            statusMsg.style.color = isError ? 'var(--accent-red)' : 'var(--accent-green)';
-            statusMsg.innerText = msg;
-            setTimeout(() => {
-                statusMsg.style.display = 'none';
-            }, 4000);
-        }
-
-        function copyOTP(code) {
-            if (!code || code === 'Code not found' || code === 'No emails found') return;
-            navigator.clipboard.writeText(code).then(() => {
-                showToast(`Copied: ${code}`);
-            });
-        }
-
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            const toastMsg = document.getElementById('toastMsg');
-            toastMsg.innerText = message;
-            toast.classList.add('show');
-            setTimeout(() => { toast.classList.remove('show'); }, 2000);
-        }
-
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const password = document.getElementById('masterPasswordInput').value;
-
-            try {
-                const res = await fetch('/api/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ password })
-                });
-
-                if (res.ok) {
-                    loginSection.classList.add('hidden');
-                    dashboardSection.classList.remove('hidden');
-                    fetchOTPs();
-                } else {
-                    loginError.style.display = 'block';
-                    loginError.innerText = "Wrong Master Password!";
-                }
-            } catch (err) {
-                loginError.style.display = 'block';
-                loginError.innerText = "Server Error!";
-            }
-        });
-
-        async function fetchOTPs() {
-            refreshBtn.disabled = true;
-            refreshBtn.style.opacity = '0.75';
-            refreshBtn.style.cursor = 'not-allowed';
-            refreshBtn.innerHTML = `<i class="fa-solid fa-rotate-right rotating"></i> Checking Gmail...`;
-
-            otpContainer.innerHTML = `
-                <div class="empty-state">
-                    <i class="fa-solid fa-spinner rotating" style="font-size: 24px; margin-bottom: 6px; display: block;"></i>
-                    Fetching OTPs from servers...
-                </div>`;
-
-            try {
-                const res = await fetch('/api/fetch-otps');
-
-                if (res.status === 401) {
-                    dashboardSection.classList.add('hidden');
-                    loginSection.classList.remove('hidden');
-                    return;
-                }
-
-                if (!res.ok) throw new Error("Failed");
-
-                const data = await res.json();
-                renderOTPs(data);
-
-            } catch (err) {
-                otpContainer.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fa-solid fa-triangle-exclamation" style="font-size: 24px; color: var(--accent-red); margin-bottom: 6px; display: block;"></i>
-                        Error loading OTPs. Try again.
-                    </div>`;
-            } finally {
-                refreshBtn.disabled = false;
-                refreshBtn.style.opacity = '1';
-                refreshBtn.style.cursor = 'pointer';
-                refreshBtn.innerHTML = `<i class="fa-solid fa-rotate-right"></i> Refresh OTPs`;
-            }
-        }
-
-        function renderOTPs(otps) {
-            if (!otps || otps.length === 0) {
-                otpContainer.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fa-solid fa-inbox" style="font-size: 24px; margin-bottom: 6px; display: block;"></i>
-                        No Gmail accounts added yet.
-                    </div>`;
-                return;
-            }
-
-            // কোন কোন কার্ড নতুন তা চেক করা
-            let newCardEmails = [];
-            if (previousCodes.length > 0) {
-                otps.forEach(item => {
-                    if (item.code && item.code !== 'Code not found' && item.code !== 'No emails found' && item.code !== 'Error') {
-                        const prev = previousCodes.find(p => p.email === item.email);
-                        // আগে ছিল না বা কোড পরিবর্তন হয়েছে = নতুন
-                        if (!prev || prev.code !== item.code) {
-                            newCardEmails.push(item.email);
-                        }
-                    }
-                });
-            } else {
-                // প্রথমবার লোড হলে প্রথমটা নতুন হিসেবে দেখাবে
-                if (otps[0] && otps[0].code && otps[0].code !== 'Code not found' && otps[0].code !== 'No emails found' && otps[0].code !== 'Error') {
-                    newCardEmails.push(otps[0].email);
-                }
-            }
-
-            // কারেন্ট কোডগুলো সেভ করে রাখা
-            previousCodes = otps.map(item => ({ email: item.email, code: item.code }));
-
-            otpContainer.innerHTML = otps.map(item => {
-                const isNew = newCardEmails.includes(item.email);
-                const validCode = item.code && item.code !== 'Code not found' && item.code !== 'No emails found' && item.code !== 'Error';
-
-                return `
-                <div class="otp-card ${isNew ? 'is-new' : ''}">
-                    ${isNew ? '<div class="new-dot"></div>' : ''}
-                    <div class="otp-email">
-                        ${item.email}
-                    </div>
-                    ${validCode ? `
-                        <div class="otp-code-box" onclick="copyOTP('${item.code}')" title="Click to copy">
-                            ${item.code}
-                        </div>
-                    ` : `
-                        <div class="otp-code-box" style="cursor: default; opacity: 0.6; font-size: 14px; letter-spacing: normal;">
-                            ${item.code || 'Code not found'}
-                        </div>
-                    `}
-                    <div class="otp-time">
-                        <i class="fa-regular fa-clock"></i> Time: ${item.time || 'N/A'} | Sender: ${item.sender || 'N/A'}
-                    </div>
-                </div>`;
-            }).join('');
-        }
-
-        addAccountForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('accEmail').value;
-            const password = document.getElementById('accPassword').value;
-
-            try {
-                const res = await fetch('/api/add-account', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
-                });
-
-                const result = await res.json();
-
-                if (res.ok) {
-                    showMessage(result.message || "Account added!");
-                    addAccountForm.reset();
-                    settingsPopup.classList.remove('active');
-                    fetchOTPs();
-                } else {
-                    showMessage(result.error || "Failed", true);
-                }
-            } catch (err) {
-                showMessage("Connection error", true);
-            }
-        });
-
-        refreshBtn.addEventListener('click', fetchOTPs);
-
-        async function logout() {
-            await fetch('/api/logout', { method: 'POST' });
-            dashboardSection.classList.add('hidden');
-            loginSection.classList.remove('hidden');
-            document.getElementById('masterPasswordInput').value = '';
-            previousCodes = [];
-        }
-    </script>
 </body>
 </html>
